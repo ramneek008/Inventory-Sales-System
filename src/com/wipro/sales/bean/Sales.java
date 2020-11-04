@@ -1,10 +1,8 @@
 package com.wipro.sales.bean;
 
-import java.util.*;
-
 public class Sales {
 	private String salesID;
-	private Date salesDate;
+	private java.util.Date salesDate;
 	private String productID;
 	private int quantitySold;
 	private double salesPricePerUnit;
@@ -16,10 +14,10 @@ public class Sales {
 		this.salesID = salesID;
 	}
 	
-	public Date getSalesDate() {
+	public java.util.Date getSalesDate() {
 		return salesDate;
 	}
-	public void setSalesDate(Date salesDate) {
+	public void setSalesDate(java.util.Date salesDate) {
 		this.salesDate = salesDate;
 	}
 	
