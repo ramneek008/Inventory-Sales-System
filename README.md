@@ -8,3 +8,5 @@ As per the requirement from the client you are required to create a console base
 <img src="https://github.com/ramneek008/Inventory-Sales-System/blob/master/tasks/2.png" />
 <img src="https://github.com/ramneek008/Inventory-Sales-System/blob/master/tasks/3.png" />
 <img src="https://github.com/ramneek008/Inventory-Sales-System/blob/master/tasks/4.png" />
+<img src="https://github.com/ramneek008/Inventory-Sales-System/blob/master/tasks/5.png" />
+<img src="https://github.com/ramneek008/Inventory-Sales-System/blob/master/tasks/6.png" />
