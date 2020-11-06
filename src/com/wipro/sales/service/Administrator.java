@@ -1,8 +1,11 @@
 package com.wipro.sales.service;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import com.wipro.sales.bean.Product;
 import com.wipro.sales.bean.Sales;
+import com.wipro.sales.bean.SalesReport;
 import com.wipro.sales.dao.SalesDao;
 import com.wipro.sales.dao.StockDao;
 import com.wipro.sales.util.DBUtil;
@@ -56,19 +59,33 @@ public class Administrator {
 		if(rs.next())
 			qtyonhold=rs.getInt("Quantity_On_Hold");
 		
-		ps = con.prepareStatement("select * from TBL_SALES where Product_ID = ?");
-		ps.setString(1, salesobj.getProductID());
-		rs = ps.executeQuery();
-		int qtysold = 0;
-		if(rs.next())
-			qtysold=rs.getInt("Quantity_Sold");
-		
-		if(qtysold>qtyonhold)
+		if(salesobj.getQuantitySold()>qtyonhold)
 			return "Not enough stock on hand for sales";
+		
+		java.util.Date date = salesobj.getSalesDate();
+		java.util.Date curDate = new Date(new java.util.Date().getTime());
+		if(date.compareTo(curDate)>0) {
+			return "Invalid date";
+		}
+		
 		else {
 			SalesDao salesdao = new SalesDao();
-			salesdao.insertSales(salesobj);
-			return "Insertion succesful";
+			String salesId = salesdao.generateSalesID(salesobj.getSalesDate());
+			salesobj.setSalesID(salesId);
+			int t = salesdao.insertSales(salesobj);
+			if(t==1) {
+				int t2 = stockdao.updateStock(salesobj.getProductID(), salesobj.getQuantitySold());
+				if(t2==1) {
+					return "Sales Completed";
+				}
+			}
+			return "Error";
 		}
+	}
+	
+	public ArrayList<SalesReport> getSalesReport()
+	{
+		SalesDao salesdao = new SalesDao();
+		return salesdao.getSalesReport();		
 	}
 }
