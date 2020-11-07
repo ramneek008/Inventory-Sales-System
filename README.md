@@ -1,16 +1,7 @@
 # Inventory-Sales-System
 
 ## Objective:
-Create a console based and GUI application using Java as frontend and Oracle as backend for the Inventory and Sales maintenance. Complete the tasks mentioned below to make this application.
-
-It consists of 2 main files:<br>
- 1. **SalesApplication.java** : Console-based application.<br>
- 2. **SalesApplicationGUI.java** : GUI application.
-
-## Built With
-
-- Java Swing
-- Oracle
+Create a console based application using Java as frontend and Oracle as backend for the Inventory and Sales maintenance. Complete the assigned module to complete this application.
 
 ### Tasks :
 <img src="https://github.com/ramneek008/Inventory-Sales-System/blob/master/tasks/1.png" />
@@ -26,9 +17,9 @@ It consists of 2 main files:<br>
 
 2. To compile it use 
     ```
-    javac SalesApplicationGUI.java
+    javac SalesApplication.java
     ```
 3. To use the application
     ```
-    java SalesApplicationGUI
+    java SalesApplication
     ```
