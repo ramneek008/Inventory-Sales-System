@@ -1,5 +1,4 @@
 package com.wipro.sales.main;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -7,7 +6,6 @@ import com.wipro.sales.bean.Product;
 import com.wipro.sales.bean.Sales;
 import com.wipro.sales.bean.SalesReport;
 import com.wipro.sales.dao.SalesDao;
-import com.wipro.sales.dao.StockDao;
 import com.wipro.sales.service.Administrator;
 
 public class SalesApplication {
@@ -24,10 +22,8 @@ public class SalesApplication {
 		case 1:
 		{
 			Product stockobj = new Product();
-			StockDao stockdao = new StockDao();
 			System.out.print("Product Name: ");
 			stockobj.setProductName(sc.next());
-			stockobj.setProductID(stockdao.generateProductID(stockobj.getProductName()));
 			System.out.print("Quantity On Hand: ");
 			stockobj.setQuantityOnHand(sc.nextInt());
 			System.out.print("Product Unit Price: ");

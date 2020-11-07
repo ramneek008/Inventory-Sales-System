@@ -15,17 +15,21 @@ public class Administrator {
 	public String insertStock(Product stockobj) throws SQLException
 	{
 		if(stockobj==null) {
-			System.out.println("Null values can't be inserted");
+			System.out.println("Null values can't be inserted.");
 		}
 		else if(stockobj.getProductName().length()<2) {
-			System.out.println("Product Name should be of minimum 2 letters");
+			System.out.println("Product Name should be of minimum 2 letters.");
 		}
 		else {
 			StockDao stockdao = new StockDao();
 			String productId = stockdao.generateProductID(stockobj.getProductName());
 			stockobj.setProductID(productId);
 			int t = stockdao.insertStock(stockobj);
-			return productId;
+			if(t==1)
+			{
+				System.out.print("Insertion succesfull. Generated Product ID: ");
+				return productId;	
+			}
 		}
 		return "Data not valid for insertion";
 	}
