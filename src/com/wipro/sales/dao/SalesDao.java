@@ -11,11 +11,11 @@ import com.wipro.sales.util.DBUtil;
 public class SalesDao {
 	
 
-	int insertSales(Sales sales) throws SQLException
+	public int insertSales(Sales sales) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
 		int t=0;
-		PreparedStatement ps = con.prepareStatement("insert into TBL_SALES values(?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("insert into HR.TBL_SALES values(?,?,?,?,?)");
 		ps.setString(1,sales.getSalesID());
 		java.sql.Date sqlDate = new java.sql.Date(sales.getSalesDate().getTime());
 		ps.setDate(2, sqlDate);
@@ -26,7 +26,7 @@ public class SalesDao {
 		return t;
 	}
 	
-	String generateSalesID(java.util.Date salesDate) throws SQLException
+	public String generateSalesID(java.util.Date salesDate) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
 		PreparedStatement ps = con.prepareStatement("select SEQ_SALES_ID.NEXTVAL from dual");
@@ -44,10 +44,10 @@ public class SalesDao {
 		
 	}
 	
-	ArrayList<SalesReport> getSalesReport() throws SQLException
+	public ArrayList<SalesReport> getSalesReport() throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("select * from V_SALES_REPORT");
+		PreparedStatement ps = con.prepareStatement("select * from HR.V_SALES_REPORT");
 		ResultSet rs = ps.executeQuery();
 		ArrayList<SalesReport> sales = new ArrayList<SalesReport>();
 		

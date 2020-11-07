@@ -52,7 +52,7 @@ public class Administrator {
 		}
 
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("select * from TBL_STOCK where Product_ID = ?");
+		PreparedStatement ps = con.prepareStatement("select Quantity_On_Hold from HR.TBL_STOCK where Product_ID = ?");
 		ps.setString(1, salesobj.getProductID());
 		ResultSet rs = ps.executeQuery();
 		int qtyonhold = 0;
@@ -83,7 +83,7 @@ public class Administrator {
 		}
 	}
 	
-	public ArrayList<SalesReport> getSalesReport()
+	public ArrayList<SalesReport> getSalesReport() throws SQLException
 	{
 		SalesDao salesdao = new SalesDao();
 		return salesdao.getSalesReport();		

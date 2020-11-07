@@ -11,7 +11,7 @@ public class StockDao {
 	{
 		Connection con = DBUtil.getDBConnection();
 		int t=0;
-		PreparedStatement ps = con.prepareStatement("insert into TBL_STOCK values(?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("insert into HR.TBL_STOCK values(?,?,?,?,?)");
 		ps.setString(1,sales.getProductID());
 		ps.setString(2,sales.getProductName());
 		ps.setInt(3,sales.getQuantityOnHand());
@@ -24,7 +24,7 @@ public class StockDao {
 	public String generateProductID(String productName) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("select SEQ_PRODUCT_ID.NEXTVAL from dual");
+		PreparedStatement ps = con.prepareStatement("select HR.SEQ_PRODUCT_ID.NEXTVAL from dual");
 		ResultSet rs = ps.executeQuery();
 		String part1 = productName.substring(0,2);
 		String productId ="";
@@ -38,14 +38,14 @@ public class StockDao {
 	{
 		Connection con = DBUtil.getDBConnection();
 		int t=0;
-		PreparedStatement ps = con.prepareStatement("select Quantity_On_Hand from TBL_STOCK where Product_ID = ?");
+		PreparedStatement ps = con.prepareStatement("select Quantity_On_Hand from HR.TBL_STOCK where Product_ID = ?");
 		ps.setString(1, productID);
 		ResultSet rs = ps.executeQuery();
 		int curQty=0;
 		if(rs.next()){
 			curQty = rs.getInt("Quantity_On_Hand");
 		}
-		ps = con.prepareStatement("update TBL_STOCK set Quantity_On_Hand = ? where Product_ID = ?");
+		ps = con.prepareStatement("update HR.TBL_STOCK set Quantity_On_Hand = ? where Product_ID = ?");
 		ps.setInt(1, curQty-soldQty);
 		ps.setString(2,productID);
 		t=ps.executeUpdate();
@@ -55,7 +55,7 @@ public class StockDao {
 	public Product getStock(String productID) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("select * from TBL_STOCK where Product_ID = ?");
+		PreparedStatement ps = con.prepareStatement("select * from HR.TBL_STOCK where Product_ID = ?");
 		ps.setString(1, productID);
 		ResultSet rs = ps.executeQuery();
 		Product product = new Product();
@@ -72,7 +72,7 @@ public class StockDao {
 	public int deleteStock(String productID) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("delete from TBL_STOCK where Product_ID = ?");
+		PreparedStatement ps = con.prepareStatement("delete from HR.TBL_STOCK where Product_ID = ?");
 		ps.setString(1, productID);
 		int t= 0;
 		t=ps.executeUpdate();

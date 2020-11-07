@@ -5,6 +5,7 @@ import java.util.*;
 import com.wipro.sales.bean.Product;
 import com.wipro.sales.bean.Sales;
 import com.wipro.sales.bean.SalesReport;
+import com.wipro.sales.dao.StockDao;
 import com.wipro.sales.service.Administrator;
 
 public class SalesApplication {
@@ -21,19 +22,29 @@ public class SalesApplication {
 		case 1:
 		{
 			Product stockobj = new Product();
-			stockobj.setProductID(sc.next());
+			StockDao stockdao = new StockDao();
+			System.out.print("Product Name: ");
 			stockobj.setProductName(sc.next());
+			System.out.println();
+			stockobj.setProductID(stockdao.generateProductID(stockobj.getProductName()));
+			System.out.print("Quantity On Hand: ");
 			stockobj.setQuantityOnHand(sc.nextInt());
+			System.out.println();
+			System.out.print("Product Unit Price: ");
 			stockobj.setProductUnitPrice(sc.nextDouble());
+			System.out.println();
+			System.out.print("Reorder Level: ");
 			stockobj.setReorderLevel(sc.nextInt());
 			
 			admin.insertStock(stockobj);
+			break;
 		}
 		
 		case 2:
 		{
 			String productId = sc.next();
 			admin.deleteStock(productId);
+			break;
 		}
 		
 		case 3:
@@ -46,20 +57,24 @@ public class SalesApplication {
 			salesobj.setSalesPricePerUnit(sc.nextDouble());
 			
 			admin.insertSales(salesobj);
+			break;
 		}
 		
 		case 4:
 		{
 			ArrayList<SalesReport> sales = new ArrayList<SalesReport>();
 			sales = admin.getSalesReport();
-			System.out.println("Sales_ID\t" + "Sales_Date\t" + "Product_ID\t" + "Product_Name\t" + "Quantity_Sold/t" + "Product_Unit_Price\t" + "Sales_Price_Per_Unit\t" + "Profit_Amount");
+			System.out.println("Sales_ID\t" + "Sales_Date\t" + "Product_ID\t" + "Product_Name\t" + "Quantity_Sold\t" + "Product_Unit_Price\t" + "Sales_Price_Per_Unit\t" + "Profit_Amount");
 			for(SalesReport sr : sales) {
 				System.out.println(sr.getSalesID() + "\t" + sr.getSalesDate() + "\t" + sr.getProductID() + "\t" + sr.getProductName() + "\t" + sr.getQuantitySold() + "/t" + sr.getProductUnitPrice() + "\t" + sr.getSalesPricePerUnit() + "\t" + sr.getProfitAmount());
 			}
+			break;
 		}
+		
 		default:
 		{
 			System.out.println("Invalid input");
+			break;
 		}
 		}
 	}
