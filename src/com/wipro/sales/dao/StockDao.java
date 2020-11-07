@@ -51,7 +51,7 @@ public class StockDao {
 		t=ps.executeUpdate();
 		return t;
 	}
-	
+
 	public Product getStock(String productID) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
@@ -65,8 +65,9 @@ public class StockDao {
 			product.setQuantityOnHand(rs.getInt("Quantity_On_Hand"));
 			product.setProductUnitPrice(rs.getDouble("Product_Unit_Price"));
 			product.setReorderLevel(rs.getInt("Reorder_Level"));
+			return product;
 		}
-		return product;
+		return null;
 	}
 	
 	public int deleteStock(String productID) throws SQLException

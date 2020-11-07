@@ -62,12 +62,14 @@ public class Administrator {
 		int qtyonhand = 0;
 		if(rs.next())
 			qtyonhand=rs.getInt("Quantity_On_Hand");
-		
 		if(salesobj.getQuantitySold()>qtyonhand)
 			return "Not enough stock on hand for sales";
 		
-		java.util.Date date = salesobj.getSalesDate();
+		java.util.Date date = new Date(salesobj.getSalesDate().getTime());
 		java.util.Date curDate = new Date(new java.util.Date().getTime());
+		System.out.println(date);
+		System.out.println(curDate);
+		
 		if(date.compareTo(curDate)>0) {
 			return "Invalid date";
 		}
