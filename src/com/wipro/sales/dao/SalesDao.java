@@ -1,6 +1,8 @@
 package com.wipro.sales.dao;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -29,15 +31,16 @@ public class SalesDao {
 	public String generateSalesID(java.util.Date salesDate) throws SQLException
 	{
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("select SEQ_SALES_ID.NEXTVAL from dual");
+		PreparedStatement ps = con.prepareStatement("select HR.SEQ_SALES_ID.NEXTVAL from dual");
 		ResultSet rs = ps.executeQuery();
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		String sdate = dateFormat.format(salesDate);
+		String year = sdate.substring(2,4);
+		System.out.println(year);
 		String salesId = "";
 		
 		if(rs.next()) {
-			salesId =  "" +(year%100) + rs.getInt(1);
+			salesId =  "" + year + rs.getInt(1);
 		}
 		
 		return salesId;

@@ -52,14 +52,14 @@ public class Administrator {
 		}
 
 		Connection con = DBUtil.getDBConnection();
-		PreparedStatement ps = con.prepareStatement("select Quantity_On_Hold from HR.TBL_STOCK where Product_ID = ?");
+		PreparedStatement ps = con.prepareStatement("select Quantity_On_Hand from HR.TBL_STOCK where Product_ID = ?");
 		ps.setString(1, salesobj.getProductID());
 		ResultSet rs = ps.executeQuery();
-		int qtyonhold = 0;
+		int qtyonhand = 0;
 		if(rs.next())
-			qtyonhold=rs.getInt("Quantity_On_Hold");
+			qtyonhand=rs.getInt("Quantity_On_Hand");
 		
-		if(salesobj.getQuantitySold()>qtyonhold)
+		if(salesobj.getQuantitySold()>qtyonhand)
 			return "Not enough stock on hand for sales";
 		
 		java.util.Date date = salesobj.getSalesDate();
