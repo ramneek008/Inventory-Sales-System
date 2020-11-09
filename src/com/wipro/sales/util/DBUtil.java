@@ -8,7 +8,7 @@ public class DBUtil {
 		Connection con = null;
 		try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "SYSTEM", "D@ta00Found");
+		con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "SYSTEM", "123456"); //Enter your password
 		// System.out.println("Connection done");
 		}
 		catch (Exception e) {

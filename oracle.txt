@@ -1,0 +1,42 @@
+1. CREATING TABLE "TBL_STOCK" :
+        create table TBL_STOCK (
+            Product_ID varchar(6) PRIMARY KEY,
+            Product_Name varchar(20) UNIQUE,
+            Quantity_On_Hand number CHECK (Quantity_On_Hand>=0),
+            Product_Unit_Price number CHECK (Product_Unit_Price>=0),
+            Reorder_Level number CHECK (Reorder_Level>=0)
+        );
+
+2. CREATING TABLE "TBL_SALES" :
+        create table TBL_SALES (
+            Sales_ID varchar(6) PRIMARY KEY,
+            Sales_Date date,
+            Product_ID varchar(6) REFERENCES TBL_STOCK,
+            Quantity_Sold number CHECK (Quantity_Sold>=0),
+            Sales_Price_Per_Unit number CHECK (Sales_Price_Per_Unit>=0)
+        );
+
+3. INSERTING SAMPLE RECORDS IN "TBL_STOCK" :
+        insert into TBL_STOCK (Product_ID, Product_Name, Quantity_On_Hand, Product_Unit_Price, Reorder_Level)
+        values('RE1001', 'REDMI Note 3', 20, 12000, 5);
+        insert into TBL_STOCK (Product_ID, Product_Name, Quantity_On_Hand, Product_Unit_Price, Reorder_Level)
+        values('ip1002', 'Iphone 5S', 10, 21000, 2);
+        insert into TBL_STOCK (Product_ID, Product_Name, Quantity_On_Hand, Product_Unit_Price, Reorder_Level)
+        values('PA1003', 'Panasonic P55', 50, 5500, 5);
+
+4. CREATING SEQUENCE "SEQ_SALES_ID" :
+        create sequence SEQ_SALES_ID
+        START WITH 1000
+        INCREMENT BY 1;
+
+5. CREATING SEQUENCE "SEQ_PRODUCT_ID" :
+        create sequence SEQ_PRODUCT_ID
+        START WITH 1004
+        INCREMENT BY 1;
+
+6. CREATING VIEW "V_SALES_REPORT" :
+        create view V_SALES_REPORT AS
+        SELECT Sales_ID, Sales_Date, Product_ID, Product_Name, Quantity_Sold, Product_Unit_Price, Sales_Price_Per_Unit, (Sales_Price_Per_Unit-Product_Unit_Price) Profit_Amount
+        FROM TBL_STOCK NATURAL JOIN TBL_SALES
+        ORDER BY Profit_Amount DESC, Sales_ID ASC;
+
